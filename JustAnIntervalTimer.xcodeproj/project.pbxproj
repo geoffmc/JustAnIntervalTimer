@@ -13,6 +13,8 @@
 		D89A0ED51A40C70D0052E1F8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D89A0ED41A40C70D0052E1F8 /* Images.xcassets */; };
 		D89A0ED81A40C70D0052E1F8 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D89A0ED61A40C70D0052E1F8 /* LaunchScreen.xib */; };
 		D89A0EE41A40C70D0052E1F8 /* JustAnIntervalTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A0EE31A40C70D0052E1F8 /* JustAnIntervalTimerTests.swift */; };
+		D89A0EEF1A40C89D0052E1F8 /* settingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A0EED1A40C89D0052E1F8 /* settingsTVC.swift */; };
+		D89A0EF01A40C89D0052E1F8 /* timerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A0EEE1A40C89D0052E1F8 /* timerVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		D89A0EDD1A40C70D0052E1F8 /* JustAnIntervalTimerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JustAnIntervalTimerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D89A0EE21A40C70D0052E1F8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D89A0EE31A40C70D0052E1F8 /* JustAnIntervalTimerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustAnIntervalTimerTests.swift; sourceTree = "<group>"; };
+		D89A0EED1A40C89D0052E1F8 /* settingsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = settingsTVC.swift; path = ../settingsTVC.swift; sourceTree = "<group>"; };
+		D89A0EEE1A40C89D0052E1F8 /* timerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = timerVC.swift; path = ../timerVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,8 @@
 		D89A0ECA1A40C70D0052E1F8 /* JustAnIntervalTimer */ = {
 			isa = PBXGroup;
 			children = (
+				D89A0EED1A40C89D0052E1F8 /* settingsTVC.swift */,
+				D89A0EEE1A40C89D0052E1F8 /* timerVC.swift */,
 				D89A0ECD1A40C70D0052E1F8 /* AppDelegate.swift */,
 				D89A0ECF1A40C70D0052E1F8 /* ViewController.swift */,
 				D89A0ED11A40C70D0052E1F8 /* Main.storyboard */,
@@ -214,6 +220,8 @@
 			files = (
 				D89A0ED01A40C70D0052E1F8 /* ViewController.swift in Sources */,
 				D89A0ECE1A40C70D0052E1F8 /* AppDelegate.swift in Sources */,
+				D89A0EF01A40C89D0052E1F8 /* timerVC.swift in Sources */,
+				D89A0EEF1A40C89D0052E1F8 /* settingsTVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
