@@ -15,6 +15,7 @@
 		D89A0EE41A40C70D0052E1F8 /* JustAnIntervalTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A0EE31A40C70D0052E1F8 /* JustAnIntervalTimerTests.swift */; };
 		D89A0EEF1A40C89D0052E1F8 /* settingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A0EED1A40C89D0052E1F8 /* settingsTVC.swift */; };
 		D89A0EF01A40C89D0052E1F8 /* timerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A0EEE1A40C89D0052E1F8 /* timerVC.swift */; };
+		D89A0EF21A40EB860052E1F8 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89A0EF11A40EB860052E1F8 /* Timer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		D89A0EE31A40C70D0052E1F8 /* JustAnIntervalTimerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JustAnIntervalTimerTests.swift; sourceTree = "<group>"; };
 		D89A0EED1A40C89D0052E1F8 /* settingsTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = settingsTVC.swift; path = ../settingsTVC.swift; sourceTree = "<group>"; };
 		D89A0EEE1A40C89D0052E1F8 /* timerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = timerVC.swift; path = ../timerVC.swift; sourceTree = "<group>"; };
+		D89A0EF11A40EB860052E1F8 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				D89A0EED1A40C89D0052E1F8 /* settingsTVC.swift */,
+				D89A0EF11A40EB860052E1F8 /* Timer.swift */,
 				D89A0EEE1A40C89D0052E1F8 /* timerVC.swift */,
 				D89A0ECD1A40C70D0052E1F8 /* AppDelegate.swift */,
 				D89A0ECF1A40C70D0052E1F8 /* ViewController.swift */,
@@ -221,6 +224,7 @@
 				D89A0ED01A40C70D0052E1F8 /* ViewController.swift in Sources */,
 				D89A0ECE1A40C70D0052E1F8 /* AppDelegate.swift in Sources */,
 				D89A0EF01A40C89D0052E1F8 /* timerVC.swift in Sources */,
+				D89A0EF21A40EB860052E1F8 /* Timer.swift in Sources */,
 				D89A0EEF1A40C89D0052E1F8 /* settingsTVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
