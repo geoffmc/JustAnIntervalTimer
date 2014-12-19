@@ -10,10 +10,10 @@ import Foundation
 
 class Timer {
     var name: String
-    var date: NSDate
+    var time: Int
     
-    init(name: String, date: NSDate) {
+    init(name: String, time: Int) {
         self.name = name
-        self.date = date
+        self.time = time
     }
 }

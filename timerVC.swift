@@ -12,18 +12,64 @@ class timerVC: UIViewController {
     
     var initialTimerLength = 30
     
+    let kWarmupDefault = 10
+    let kHighIntDefault = 60
+    let kLowIntDefault = 10
+    let kCooldownDefault = 30
+    let kRoundsDefault = 5
+    
     var timerLength = Int()
     var timerRunning = false
     var timer = NSTimer()
+    
+    var warmupTimer: Timer
+    var highIntTimer: Timer
+    var lowIntTimer: Timer
+    var cooldownTimer: Timer
+    var rounds: Int
+    
+    var pickerSec = [Int]()
+    var pickerMin = [Int]()
 
     @IBOutlet weak var timerLabel: UILabel!
+
+    required init(coder aDecoder: NSCoder) {
+        
+        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
+        
+        let warmup = (defaults.objectForKey("warmup") != nil) ? defaults.objectForKey("warmup") as? Int : kWarmupDefault
+        let highInt = (defaults.objectForKey("highInt") != nil) ? defaults.objectForKey("highInt") as? Int : kHighIntDefault
+        let lowInt = (defaults.objectForKey("lowInt") != nil) ? defaults.objectForKey("lowInt") as? Int : kLowIntDefault
+        let cooldown = (defaults.objectForKey("cooldown") != nil) ? defaults.objectForKey("cooldown") as? Int : kCooldownDefault
+        let rounds = (defaults.objectForKey("rounds") != nil) ? defaults.objectForKey("rounds") as? Int : kRoundsDefault
+        
+        self.warmupTimer = Timer(name: "Warmup", time: warmup!)
+        self.highIntTimer = Timer(name: "High Interval", time: highInt!)
+        self.lowIntTimer = Timer(name: "Low Interval", time: lowInt!)
+        self.cooldownTimer = Timer(name: "Cooldown", time: cooldown!)
+        self.rounds = rounds!
+        
+        super.init(coder: aDecoder)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        getSavedSettings()
+        
+        getTimerSettings()
         timerLength = initialTimerLength
         updateUI()
+    }
+    
+    func getTimerSettings() {
+        
+        
+        
+        
+        let warmup = Timer(name: "Warmup", time: 20)
+        let highInterval = Timer(name: "High Interval", time: 100)
+        let lowInterval = Timer(name: "Low Interval", time: 45)
+        let cooldown = Timer(name: "Cooldown", time: 155)
     }
     
     func startTimer() {
@@ -53,19 +99,6 @@ class timerVC: UIViewController {
     
     func updateUI() {
         timerLabel.text = "\(timerLength)"
-    }
-    
-    func getSavedSettings() {
-        var defaults: NSUserDefaults = NSUserDefaults.standardUserDefaults()
-        if let intervalTimerLength = defaults.objectForKey("intervalTimerLength") as? Int {
-            initialTimerLength = intervalTimerLength
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-        
     }
     
     @IBAction func pressedStart(sender: UIButton) {

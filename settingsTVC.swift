@@ -8,19 +8,21 @@
 
 import UIKit
 
-class settingsTVC: UITableViewController {
-    
-    let kDatePickerTag = 1
-    let kTitleKey = "title"
-    let kDateKey = "date"
-    
+class settingsTVC: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+
     let kTimerCellID = "timerCell"
     let kDatePickerCellID = "datePickerCell"
+    let kSecsInMin = 60
+    let kSecsInterval = 5
+    
+    let kTimePickerTag = 2
+    var pickerSec = [Int]()
+    var pickerMin = [Int]()
     
     var data: [Timer] = []
     var dateFormatter = NSDateFormatter()
     
-    var datePickerIndexPath: NSIndexPath?
+    var timePickerIndexPath: NSIndexPath?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,32 +34,35 @@ class settingsTVC: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         createTimers()
-        
-        dateFormatter.dateStyle = .ShortStyle
-        dateFormatter.timeStyle = .NoStyle
+        setupPicker()
         
         tableView.estimatedRowHeight = 44.0
         tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     func createTimers() {
-        let timer1 = Timer(name: "Date 1", date: NSDate(timeIntervalSince1970: 6324480000))
-        let timer2 = Timer(name: "Date 2", date: NSDate(timeIntervalSince1970: 123456789))
-        let timer3 = Timer(name: "Date 3", date: NSDate(timeIntervalSince1970: 2349872398))
-        let timer4 = Timer(name: "Date 4", date: NSDate())
-        let timer5 = Timer(name: "Date 5", date: NSDate(timeIntervalSince1970: 2952972398))
-        let timer6 = Timer(name: "Date 6", date: NSDate())
+        let warmup = Timer(name: "Warmup", time: 20)
+        let highInterval = Timer(name: "High Interval", time: 100)
+        let lowInterval = Timer(name: "Low Interval", time: 45)
+        let cooldown = Timer(name: "Cooldown", time: 155)
         
-        data.append(timer1)
-        data.append(timer2)
-        data.append(timer3)
-        data.append(timer4)
-        data.append(timer5)
-        data.append(timer6)
+        data.append(warmup)
+        data.append(highInterval)
+        data.append(lowInterval)
+        data.append(cooldown)
+    }
+    
+    func setupPicker() {
+        for (var x=0; x<kSecsInMin; x++) {
+            if (x%kSecsInterval == 0) {
+                pickerSec.append(x)
+            }
+            pickerMin.append(x)
+        }
     }
 
-    func hasInlineDatePicker() -> Bool {
-        if (datePickerIndexPath != nil) {
+    func hasInlinePicker() -> Bool {
+        if (timePickerIndexPath != nil) {
             return true
         } else {
             return false
@@ -72,7 +77,7 @@ class settingsTVC: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var rows = data.count
-        if (hasInlineDatePicker()) {
+        if (hasInlinePicker()) {
             rows++
         }
         return rows
@@ -80,21 +85,28 @@ class settingsTVC: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if (datePickerIndexPath?.row == indexPath.row) {
+        if (timePickerIndexPath?.row == indexPath.row) {
             let timer = data[indexPath.row-1]
             let cell = tableView.dequeueReusableCellWithIdentifier(kDatePickerCellID, forIndexPath: indexPath) as UITableViewCell
-            let targetedDatePicker = cell.viewWithTag(kDatePickerTag) as UIDatePicker
-            targetedDatePicker.setDate(timer.date, animated: false)
+            
+            let targetedTimePicker = cell.viewWithTag(kTimePickerTag) as UIPickerView
+            targetedTimePicker.delegate = self
+            targetedTimePicker.dataSource = self
+            targetedTimePicker.selectRow(timer.time / kSecsInMin, inComponent: 0, animated: false)
+            targetedTimePicker.selectRow(timer.time % kSecsInMin / kSecsInterval, inComponent: 1, animated: false)
+            
             return cell
+            
         } else {
             var modelRow = indexPath.row
-            if (datePickerIndexPath != nil && datePickerIndexPath?.row <= indexPath.row) {
+            if (timePickerIndexPath != nil && timePickerIndexPath?.row <= indexPath.row) {
                 modelRow--
             }
             let cell = tableView.dequeueReusableCellWithIdentifier(kTimerCellID, forIndexPath: indexPath) as UITableViewCell
             let timer = data[modelRow] as Timer
             cell.textLabel!.text = timer.name
-            cell.detailTextLabel!.text = dateFormatter.stringFromDate(timer.date)
+            cell.detailTextLabel!.text = formatSecondsAsString(timer.time)
+            
             return cell
         }
     }
@@ -107,8 +119,8 @@ class settingsTVC: UITableViewController {
         
         newPickerRow = indexPath.row + 1
         
-        if hasInlineDatePicker() {
-            currentPickerRow = datePickerIndexPath?.row
+        if hasInlinePicker() {
+            currentPickerRow = timePickerIndexPath?.row
             if (newPickerRow > currentPickerRow) {
                 newPickerRow -= 1
             }
@@ -124,30 +136,64 @@ class settingsTVC: UITableViewController {
     
     func displayInlinePickerAtIndexPath(indexPath: NSIndexPath) {
         tableView.beginUpdates()
-        datePickerIndexPath = indexPath
+        timePickerIndexPath = indexPath
         tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
         tableView.endUpdates()
     }
     
     func hidePickerCell() {
         tableView.beginUpdates()
-        tableView.deleteRowsAtIndexPaths([datePickerIndexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
-        datePickerIndexPath = nil
+        tableView.deleteRowsAtIndexPaths([timePickerIndexPath!], withRowAnimation: UITableViewRowAnimation.Fade)
+        timePickerIndexPath = nil
         tableView.endUpdates()
     }
-
-    @IBAction func datePickerChanged(sender: UIDatePicker) {
-        if (hasInlineDatePicker()) {
-            let parentCellIndexPath = NSIndexPath(forRow: datePickerIndexPath!.row-1, inSection: 0)
+    
+    func formatSecondsAsString(time: Int) -> String {
+        var mins = time / kSecsInMin
+        var secs = time % kSecsInMin
+        
+        var timeString = "\(mins):\(secs)"
+        
+        if (mins < 10 && secs < 10) {
+            timeString = "0\(mins):0\(secs)"
+        } else if (mins < 10) {
+            timeString = "0\(mins):\(secs)"
+        } else if (secs < 10) {
+            timeString = "\(mins):0\(secs)"
+        }
+        
+        return timeString
+    }
+    
+    // MARK: - UIPickerView Delegate and Data Source Methods
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 2
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return (component == 0) ? pickerMin.count * kSecsInterval : pickerSec.count * kSecsInterval
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+        return (component == 0) ? "\(pickerMin[row % pickerMin.count])" : "\(pickerSec[row % pickerSec.count])"
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if (hasInlinePicker()) {
+            let parentCellIndexPath = NSIndexPath(forRow: timePickerIndexPath!.row-1, inSection: 0)
             let timer = data[parentCellIndexPath.row]
-            timer.date = sender.date
+            
+            let mins = pickerMin[pickerView.selectedRowInComponent(0) % pickerMin.count]
+            let secs = pickerSec[pickerView.selectedRowInComponent(1) % pickerSec.count]
+            
+            timer.time = mins * kSecsInMin + secs
             
             if let parentCell = tableView.cellForRowAtIndexPath(parentCellIndexPath) {
-                parentCell.detailTextLabel?.text = dateFormatter.stringFromDate(sender.date)
+                parentCell.detailTextLabel?.text = formatSecondsAsString(timer.time)
             }
-        } else {
-            return
         }
+        
     }
+    
 
 }

@@ -24,7 +24,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZfT-rd-cpm">
-                                <rect key="frame" x="65" y="172" width="33" height="30"/>
+                                <rect key="frame" x="65" y="141" width="33" height="30"/>
                                 <state key="normal" title="Start">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -33,7 +33,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ERe-QT-36e">
-                                <rect key="frame" x="65" y="219" width="33" height="30"/>
+                                <rect key="frame" x="65" y="188" width="33" height="30"/>
                                 <state key="normal" title="Stop">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -42,7 +42,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="khY-hz-TRc">
-                                <rect key="frame" x="65" y="266" width="40" height="30"/>
+                                <rect key="frame" x="65" y="235" width="40" height="30"/>
                                 <state key="normal" title="Reset">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -104,26 +104,20 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="datePickerCell" rowHeight="180" id="HZ9-tF-QpS">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="datePickerCell" rowHeight="160" id="HZ9-tF-QpS">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HZ9-tF-QpS" id="8fZ-s7-g6P">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <datePicker tag="1" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="0hc-Ya-pnl">
-                                            <rect key="frame" x="8" y="8" width="584" height="162"/>
-                                            <date key="date" timeIntervalSinceReferenceDate="440454146.01916999">
-                                                <!--2014-12-16 20:22:26 +0000-->
-                                            </date>
-                                            <connections>
-                                                <action selector="datePickerChanged:" destination="Udj-MG-lNA" eventType="valueChanged" id="qHL-yh-GNu"/>
-                                            </connections>
-                                        </datePicker>
+                                        <pickerView tag="2" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v8i-IW-Nzf">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="162"/>
+                                        </pickerView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="0hc-Ya-pnl" firstAttribute="trailing" secondItem="8fZ-s7-g6P" secondAttribute="trailingMargin" constant="7" id="2vG-M9-Xfb"/>
-                                        <constraint firstItem="0hc-Ya-pnl" firstAttribute="leading" secondItem="8fZ-s7-g6P" secondAttribute="leadingMargin" constant="7" id="79h-Vl-OS1"/>
-                                        <constraint firstItem="0hc-Ya-pnl" firstAttribute="top" secondItem="8fZ-s7-g6P" secondAttribute="topMargin" constant="7" id="cQq-4d-W30"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="0hc-Ya-pnl" secondAttribute="bottom" constant="7" id="czJ-jI-NYs"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="v8i-IW-Nzf" secondAttribute="trailing" id="15u-Y8-t76"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="v8i-IW-Nzf" secondAttribute="bottom" id="8Ql-gj-ldZ"/>
+                                        <constraint firstItem="v8i-IW-Nzf" firstAttribute="leading" secondItem="8fZ-s7-g6P" secondAttribute="leadingMargin" id="BS1-8c-BXh"/>
+                                        <constraint firstItem="v8i-IW-Nzf" firstAttribute="top" secondItem="8fZ-s7-g6P" secondAttribute="topMargin" id="HYP-lS-q22"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
